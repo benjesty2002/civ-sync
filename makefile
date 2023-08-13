@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 .PHONY: all venv run clean
 
 # set variables
@@ -20,15 +21,15 @@ clean:
 	rm -rf $(VENV)
 	find . -type f -name '*.pyc' -delete
 
-build: $(VENV)/bin/activate
+build: venv
 	source $(VENV)/bin/activate && cdk synth
 
-diff: $(VENV)/bin/activate
+diff: venv
 	source $(VENV)/bin/activate && cdk diff
 
-deploy: $(VENV)/bin/activate
+deploy: venv
 	source $(VENV)/bin/activate && cdk deploy
 
-sync:
+sync: venv
 	aws s3 sync $(LOCAL_SAVES_DIR) s3://$(BUCKET_NAME)
 	aws s3 sync s3://$(BUCKET_NAME) $(LOCAL_SAVES_DIR)
