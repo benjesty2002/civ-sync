@@ -18,15 +18,11 @@ clean:
 	rm -rf $(VENV)
 	find . -type f -name '*.pyc' -delete
 
-setup-windows:
-	echo "TODO"
+build: $(VENV)/bin/activate
+	source $(VENV)/bin/activate && cdk synth
 
-setup-mac: requirements.txt venv
-	python3 -m venv .venv
-	source .venv/bin/activate && pip install -r requirements.txt
+diff: $(VENV)/bin/activate
+	source $(VENV)/bin/activate && cdk diff
 
-deploy:
-	cdk deploy
-
-diff:
-	cdk diff
+deploy: $(VENV)/bin/activate
+	source $(VENV)/bin/activate && cdk deploy

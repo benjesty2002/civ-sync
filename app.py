@@ -3,11 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from temp.temp_stack import TempStack
+from cdk.S3Stack import S3Stack
 
 
 app = cdk.App()
-TempStack(app, "TempStack",
+S3Stack(app, "CivSavesStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
