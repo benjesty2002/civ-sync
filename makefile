@@ -1,6 +1,8 @@
 .PHONY: all venv run clean
 
-# define the name of the virtual environment directory
+# set variables
+include .env
+export
 VENV := .venv
 
 
@@ -26,3 +28,7 @@ diff: $(VENV)/bin/activate
 
 deploy: $(VENV)/bin/activate
 	source $(VENV)/bin/activate && cdk deploy
+
+sync:
+	aws s3 sync $(LOCAL_SAVES_DIR) s3://$(BUCKET_NAME)
+	aws s3 sync s3://$(BUCKET_NAME) $(LOCAL_SAVES_DIR)

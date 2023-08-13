@@ -1,3 +1,4 @@
+import os
 from aws_cdk import (
     Stack,
     RemovalPolicy,
@@ -12,7 +13,7 @@ class S3Stack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         s3.Bucket(self, "civ6-saves-bucket",
-            bucket_name="civ6-saves",
+            bucket_name=os.environ.get("BUCKET_NAME"),
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
             encryption=s3.BucketEncryption.S3_MANAGED,
             removal_policy=RemovalPolicy.RETAIN
