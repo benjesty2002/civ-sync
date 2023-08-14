@@ -31,5 +31,8 @@ deploy: venv
 	source $(VENV)/bin/activate && cdk deploy
 
 sync: venv
-	aws s3 sync $(LOCAL_SAVES_DIR) s3://$(BUCKET_NAME)
-	aws s3 sync s3://$(BUCKET_NAME) $(LOCAL_SAVES_DIR)
+	aws s3 sync $(CIV_LOCAL_SAVES) s3://$(CIV_S3_SAVES)
+	aws s3 sync s3://$(CIV_S3_SAVES) $(CIV_LOCAL_SAVES)
+
+start: venv
+	./$(VENV)/bin/python ./scripts/S3Sync.py
